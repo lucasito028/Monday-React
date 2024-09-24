@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import mondaySdk from 'monday-sdk-js';
 
 const monday = mondaySdk();
 
 function App() {
-  const [boardsData, setBoardsData] = useState(null);
 
+  /*
   useEffect(() => {
     // Setando o token de autenticação do Monday.com
     monday.setToken('eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjQwOTI2MTMzMSwiYWFpIjoxMSwidWlkIjo2NTk5NzAxMCwiaWFkIjoiMjAyNC0wOS0xMVQxMjo1NTozMS42OTlaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjU0MDU1NjYsInJnbiI6InVzZTEifQ.3BSo6yS7FCGzD2BcVYbs6gdfUCZtdfJquaSDUydpYgc');
@@ -42,6 +41,8 @@ function App() {
       console.error('Erro ao buscar dados do Monday.com:', err);
     });
   }, []);
+
+  */
 
   return (
     <div>
