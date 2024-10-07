@@ -24,6 +24,7 @@ function App() {
     monday.api(`
       query GetBoardItems{  
         boards {  
+          id
           name
           items_page {  
             items {  
@@ -48,13 +49,11 @@ function App() {
   }, []); 
 
   const groupItemsByTitle = (items) => {
-
     const groupedItems = {};
     let groupId;
-
+    
     items.forEach(item => {
       groupId = item.group.id;
-
       if (!groupedItems[groupId]) {
         groupedItems[groupId] = {
           id: groupId,
@@ -62,7 +61,6 @@ function App() {
           items: []
         };
       }
-      
       groupedItems[groupId].items.push(item);
     });
 
@@ -75,9 +73,15 @@ function App() {
         boards.map((board) => {
           const groupedItems = groupItemsByTitle(board.items_page.items);
           return(
-            <div key={board.name}>
-            <h1>{board.name}</h1>
-              <pre>{JSON.stringify(groupedItems, undefined, 2)}</pre>
+            <div key={board.id}>
+              <h1>{board.name}</h1>
+              {Object.keys(groupedItems).map((groupKey) => (
+                <div>
+                  <h2>{groupedItems[groupKey].id}</h2>
+                  <h2>{groupedItems[groupKey].title}</h2>
+                  <pre>{JSON.stringify(groupedItems[groupKey], undefined, 2)}</pre>
+                </div>
+              ))}
             </div>
             )
         }
