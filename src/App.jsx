@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
 import mondaySdk from "monday-sdk-js";
 
-
-
 function App() {
 
   const monday = mondaySdk();
@@ -25,34 +23,65 @@ function App() {
     monday.setToken('eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjQxOTI5NDgxMCwiYWFpIjoxMSwidWlkIjo2NjkzNjYyNywiaWFkIjoiMjAyNC0xMC0wM1QyMzoxMzo1Ny4wMDBaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjU4MDMzNTQsInJnbiI6InVzZTEifQ.eCp29EaFu911QT1avoSU2Kt1P2ht7U9ON_R1oaLes7I');
     monday.api(`
       query GetBoardItems{  
-       boards {  
-           items_page {  
-           items {  
-               id  
-               name  
-               column_values {  
-               id  
-               value  
-               }  
-           }  
-           }  
-       }  
-       }
+        boards {  
+          name
+          items_page {  
+            items {  
+              id  
+              name  
+              column_values {  
+                id  
+                value  
+              }  
+              group{
+                id
+                title
+              }
+            }  
+          }  
+        }  
+      }
        `).then(res => {
            //console.log(res)
            setBoards(res.data.boards);
        });
   }, []); 
 
+  const groupItemsByTitle = (items) => {
+
+    const groupedItems = {};
+    let groupId;
+
+    items.forEach(item => {
+      groupId = item.group.id;
+
+      if (!groupedItems[groupId]) {
+        groupedItems[groupId] = {
+          title: item.group.title,
+          items: []
+        };
+      }
+
+      groupedItems[groupId].items.push(item);
+    });
+
+    return groupedItems;
+  }
+
   return (
     <>
-      {/*<pre>{JSON.stringify(boards, undefined, 2)}</pre>*/}
       {
-        boards.map((board) => (
-          board.items_page.items.map((item) => (
-            <pre>{JSON.stringify(item, undefined, 2)}</pre>
-          ))
-        ))
+        boards.map((board) => {
+          const groupedItems = groupItemsByTitle(board.items_page.items);
+          return(
+            <div key={board.name}>
+            <h1>{board.name}</h1>
+              <pre>{JSON.stringify(groupedItems, undefined, 2)}</pre>
+            </div>
+            )
+        }
+      )
+        
       }
       <button onClick={(e) => create(e)}>Criar algo</button>
     </>
