@@ -57,11 +57,12 @@ function App() {
 
       if (!groupedItems[groupId]) {
         groupedItems[groupId] = {
+          id: groupId,
           title: item.group.title,
           items: []
         };
       }
-
+      
       groupedItems[groupId].items.push(item);
     });
 
