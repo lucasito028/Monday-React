@@ -29,7 +29,7 @@ function App() {
       (board_id: 7564143508, 
         item_id: 7628193306,
         column_id:"name"
-        value: "Sebola") {
+        value: "Arroz") {
         id
       }
     }
@@ -52,6 +52,7 @@ function App() {
               column_values {  
                 id  
                 value  
+                text
               }  
               group{
                 id
@@ -118,7 +119,7 @@ function App() {
                           <td>{item.id}</td>
                           <td>{item.name}</td>
                             {item.column_values.map((column) => (
-                              <td>{column.value}</td>  
+                              <td>{column.text}</td>  
                             ))}
                           </tr>
                         ))}
