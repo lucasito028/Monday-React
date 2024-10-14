@@ -11,7 +11,7 @@ function App() {
     monday.setToken('eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjQxOTI5NDgxMCwiYWFpIjoxMSwidWlkIjo2NjkzNjYyNywiaWFkIjoiMjAyNC0xMC0wM1QyMzoxMzo1Ny4wMDBaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjU4MDMzNTQsInJnbiI6InVzZTEifQ.eCp29EaFu911QT1avoSU2Kt1P2ht7U9ON_R1oaLes7I');
     monday.api(`
       mutation CreateNewItem{
-        create_item (board_id: 7564143508, item_name: "New Item") {
+        create_item (board_id: 7564143508, item_name: "Calabresa") {
           id
         }
       }
@@ -27,9 +27,9 @@ function App() {
       mutation UpdateColumnValue{
       change_simple_column_value 
       (board_id: 7564143508, 
-        item_id: 7564143554,
+        item_id: 7628193306,
         column_id:"name"
-        value: "Exemplo") {
+        value: "Sebola") {
         id
       }
     }
@@ -112,31 +112,25 @@ function App() {
                     ))}
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td>Id</td>
-                      <td>Name</td>
+                  <tbody> 
                       {groupedItems[groupKey].items.map((item) => (
-                          <>
-                            {item.column_values.map((column, index) => (
-                              <td key={index}>{column.value}</td>  
+                          <tr>
+                          <td>{item.id}</td>
+                          <td>{item.name}</td>
+                            {item.column_values.map((column) => (
+                              <td>{column.value}</td>  
                             ))}
-                          </>
+                          </tr>
                         ))}
-                    </tr>
                   </tbody>
                 </table>
 
-                {groupedItems[groupKey].items.map((item) => (
-                  <pre key={item.id}>{JSON.stringify(item, undefined, 2)}</pre>
-                ))}
               </div>
             ))}
           </div>
         );
       })}
 
-      {/*<pre>{JSON.stringify(result, undefined, 2)}</pre>*/}
     </>
   )
 }
