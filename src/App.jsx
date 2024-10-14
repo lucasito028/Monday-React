@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import mondaySdk from "monday-sdk-js";
+import {divTable} from "./assets/style";
 
 function App() {
 
@@ -51,6 +52,7 @@ function App() {
               name  
               column_values {  
                 id  
+                type
                 value  
                 text
               }  
@@ -87,7 +89,7 @@ function App() {
   }
 
   return (
-    <>
+    <main>
       <button onClick={(e) => create(e)}>Criar algo</button>
       <button onClick={(e) => update(e)}>Alterar algo</button>
 
@@ -97,7 +99,7 @@ function App() {
           <div key={board.id}>
             <h1>Borda: {board.name}</h1>
             {Object.keys(groupedItems).map((groupKey) => (
-              <div key={groupKey}>
+              <divTable key={groupKey}>
                 <h2>Tabela: {groupedItems[groupKey].title}</h2>
                 <table>
                   <thead>
@@ -107,7 +109,7 @@ function App() {
                       {groupedItems[groupKey].items.slice(0, 1).map((item) => (
                       <>
                         {item.column_values.map((column, index) => (
-                          <td key={index}>{column.id}</td>  
+                          <td key={index}>{column.type}</td>  
                         ))}
                       </>
                     ))}
@@ -126,13 +128,13 @@ function App() {
                   </tbody>
                 </table>
 
-              </div>
+              </divTable>
             ))}
           </div>
         );
       })}
 
-    </>
+    </main>
   )
 }
 
