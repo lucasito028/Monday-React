@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import mondaySdk from "monday-sdk-js";
-import {divTable} from "./assets/style";
+import {MondayCopyTable} from "./assets/style";
 
 function App() {
 
@@ -12,7 +12,7 @@ function App() {
     monday.setToken('eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjQxOTI5NDgxMCwiYWFpIjoxMSwidWlkIjo2NjkzNjYyNywiaWFkIjoiMjAyNC0xMC0wM1QyMzoxMzo1Ny4wMDBaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjU4MDMzNTQsInJnbiI6InVzZTEifQ.eCp29EaFu911QT1avoSU2Kt1P2ht7U9ON_R1oaLes7I');
     monday.api(`
       mutation CreateNewItem{
-        create_item (board_id: 7564143508, item_name: "Calabresa") {
+        create_item (board_id: 7564143508, item_name: "Cenoura") {
           id
         }
       }
@@ -28,14 +28,14 @@ function App() {
       mutation UpdateColumnValue{
       change_simple_column_value 
       (board_id: 7564143508, 
-        item_id: 7628193306,
+        item_id: 7631035830,
         column_id:"name"
-        value: "Arroz") {
+        value: "Tirinhas") {
         id
       }
     }
        `).then(res => {
-           alert(res.data.create_item.id)
+           alert(res.data.change_simple_column_value.id)
        });
   }
 
@@ -55,6 +55,10 @@ function App() {
                 type
                 value  
                 text
+                column{
+                  title
+                  description
+                }
               }  
               group{
                 id
@@ -99,9 +103,9 @@ function App() {
           <div key={board.id}>
             <h1>Borda: {board.name}</h1>
             {Object.keys(groupedItems).map((groupKey) => (
-              <divTable key={groupKey}>
+              <div key={groupKey}>
                 <h2>Tabela: {groupedItems[groupKey].title}</h2>
-                <table>
+                <MondayCopyTable>
                   <thead>
                     <tr>
                       <td>Id</td>
@@ -109,7 +113,7 @@ function App() {
                       {groupedItems[groupKey].items.slice(0, 1).map((item) => (
                       <>
                         {item.column_values.map((column, index) => (
-                          <td key={index}>{column.type}</td>  
+                          <td key={index}>{column.column.title}</td>  
                         ))}
                       </>
                     ))}
@@ -126,9 +130,9 @@ function App() {
                           </tr>
                         ))}
                   </tbody>
-                </table>
+                </MondayCopyTable>
 
-              </divTable>
+              </div>
             ))}
           </div>
         );
