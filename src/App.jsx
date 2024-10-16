@@ -28,9 +28,9 @@ function App() {
       mutation UpdateColumnValue{
       change_simple_column_value 
       (board_id: 7564143508, 
-        item_id: 7631035830,
+        item_id: 7627339961,
         column_id:"name"
-        value: "Tirinhas") {
+        value: "Carne") {
         id
       }
     }
