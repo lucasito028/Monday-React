@@ -44,7 +44,7 @@ function App() {
     monday.setToken('eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjQyNzY5MDY4NiwiYWFpIjoxMSwidWlkIjo2Nzc0NTMzMywiaWFkIjoiMjAyNC0xMC0yNFQxMTo0NzozMy4wMDBaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjYxNDkyNTIsInJnbiI6InVzZTEifQ.zhgRaEbrG4Pkbw0Uap6KX8GQM2DAHGaOTAjKeZfTBCA');
     monday.api(`
       mutation CreateNewItem{
-        create_group(board_id: 7703061698,
+        create_group(board_id: 7705275750,
           group_name: "Binaldo"){
           id
         }
@@ -59,11 +59,25 @@ function App() {
     monday.setToken('eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjQyNzY5MDY4NiwiYWFpIjoxMSwidWlkIjo2Nzc0NTMzMywiaWFkIjoiMjAyNC0xMC0yNFQxMTo0NzozMy4wMDBaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjYxNDkyNTIsInJnbiI6InVzZTEifQ.zhgRaEbrG4Pkbw0Uap6KX8GQM2DAHGaOTAjKeZfTBCA');
     monday.api(`
       mutation deleteBoard{
-        delete_board(board_id: 7703061698){
+        delete_board(board_id: 7705263259){
         id}
       }
        `).then(res => {
            alert(res.data.delete_board.id)
+       });
+  }
+
+  const createBoard = (e) => {
+    e.preventDefault();
+    monday.setToken('eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjQyNzY5MDY4NiwiYWFpIjoxMSwidWlkIjo2Nzc0NTMzMywiaWFkIjoiMjAyNC0xMC0yNFQxMTo0NzozMy4wMDBaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjYxNDkyNTIsInJnbiI6InVzZTEifQ.zhgRaEbrG4Pkbw0Uap6KX8GQM2DAHGaOTAjKeZfTBCA');
+    monday.api(`
+      mutation CreateBoard{
+        create_board(board_name: "Teste2", board_kind: public){
+          id
+        }
+      }
+       `).then(res => {
+           alert(res.data.create_board.id)
        });
   }
 
@@ -125,13 +139,15 @@ function App() {
       <button onClick={(e) => create(e)}>Criar algo</button>
       <button onClick={(e) => update(e)}>Alterar algo</button>
       <button onClick={(e) => createGroup(e)}>Criar Grupo</button>
-      <button onClick={(e) => deleteBoard(e)}>Deletar Grupo</button>
+      <button onClick={(e) => deleteBoard(e)}>Deletar Board</button>
+      <button onClick={(e) => createBoard(e)}>Criar Borda</button>
 
       {result.map((board) => {
         const groupedItems = groupItemsByTitle(board.items_page.items);
         return (
           <div key={board.id}>
             <h1>Borda: {board.name}</h1>
+            <h1>Bord Id: {board.id}</h1>
             {Object.keys(groupedItems).map((groupKey) => (
               <div key={groupKey}>
                 <h2>Tabela: {groupedItems[groupKey].title}</h2>
