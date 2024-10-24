@@ -9,10 +9,10 @@ function App() {
   
   const create = (e) => {
     e.preventDefault();
-    monday.setToken('eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjQyNjYzMjkzMiwiYWFpIjoxMSwidWlkIjo2NjQzMDk4MywiaWFkIjoiMjAyNC0xMC0yMlQxMzoxMDo0My4wMjlaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjU1ODg4ODYsInJnbiI6InVzZTEifQ.zgqlFO3h4I-Oaos8md9cJdiPefQx5tcJKda_QFMW0kw');
+    monday.setToken('eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjQyNzY5MDY4NiwiYWFpIjoxMSwidWlkIjo2Nzc0NTMzMywiaWFkIjoiMjAyNC0xMC0yNFQxMTo0NzozMy4wMDBaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjYxNDkyNTIsInJnbiI6InVzZTEifQ.zhgRaEbrG4Pkbw0Uap6KX8GQM2DAHGaOTAjKeZfTBCA');
     monday.api(`
       mutation CreateNewItem{
-        create_item (board_id: 7478168789, item_name: "Cenoura") {
+        create_item (board_id: 7703061698, item_name: "Cenoura") {
           id
         }
       }
@@ -23,11 +23,11 @@ function App() {
 
   const update = (e) => {
     e.preventDefault();
-    monday.setToken('eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjQyNjYzMjkzMiwiYWFpIjoxMSwidWlkIjo2NjQzMDk4MywiaWFkIjoiMjAyNC0xMC0yMlQxMzoxMDo0My4wMjlaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjU1ODg4ODYsInJnbiI6InVzZTEifQ.zgqlFO3h4I-Oaos8md9cJdiPefQx5tcJKda_QFMW0kw');
+    monday.setToken('eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjQyNzY5MDY4NiwiYWFpIjoxMSwidWlkIjo2Nzc0NTMzMywiaWFkIjoiMjAyNC0xMC0yNFQxMTo0NzozMy4wMDBaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjYxNDkyNTIsInJnbiI6InVzZTEifQ.zhgRaEbrG4Pkbw0Uap6KX8GQM2DAHGaOTAjKeZfTBCA');
     monday.api(`
       mutation UpdateColumnValue{
       change_simple_column_value 
-      (board_id: 7478168789, 
+      (board_id: 7703061698, 
         item_id: 7627339961,
         column_id:"name"
         value: "Carne") {
@@ -39,8 +39,36 @@ function App() {
        });
   }
 
+  const createGroup = (e) => {
+    e.preventDefault();
+    monday.setToken('eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjQyNzY5MDY4NiwiYWFpIjoxMSwidWlkIjo2Nzc0NTMzMywiaWFkIjoiMjAyNC0xMC0yNFQxMTo0NzozMy4wMDBaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjYxNDkyNTIsInJnbiI6InVzZTEifQ.zhgRaEbrG4Pkbw0Uap6KX8GQM2DAHGaOTAjKeZfTBCA');
+    monday.api(`
+      mutation CreateNewItem{
+        create_group(board_id: 7703061698,
+          group_name: "Binaldo"){
+          id
+        }
+      }
+       `).then(res => {
+           alert(res.data.create_group.id)
+       });
+  }
+
+  const deleteBoard = (e) => {
+    e.preventDefault();
+    monday.setToken('eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjQyNzY5MDY4NiwiYWFpIjoxMSwidWlkIjo2Nzc0NTMzMywiaWFkIjoiMjAyNC0xMC0yNFQxMTo0NzozMy4wMDBaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjYxNDkyNTIsInJnbiI6InVzZTEifQ.zhgRaEbrG4Pkbw0Uap6KX8GQM2DAHGaOTAjKeZfTBCA');
+    monday.api(`
+      mutation deleteBoard{
+        delete_board(board_id: 7703061698){
+        id}
+      }
+       `).then(res => {
+           alert(res.data.delete_board.id)
+       });
+  }
+
   useEffect(() => {
-    monday.setToken('eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjQyNjYzMjkzMiwiYWFpIjoxMSwidWlkIjo2NjQzMDk4MywiaWFkIjoiMjAyNC0xMC0yMlQxMzoxMDo0My4wMjlaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjU1ODg4ODYsInJnbiI6InVzZTEifQ.zgqlFO3h4I-Oaos8md9cJdiPefQx5tcJKda_QFMW0kw');
+    monday.setToken('eyJhbGciOiJIUzI1NiJ9.eyJ0aWQiOjQyNzY5MDY4NiwiYWFpIjoxMSwidWlkIjo2Nzc0NTMzMywiaWFkIjoiMjAyNC0xMC0yNFQxMTo0NzozMy4wMDBaIiwicGVyIjoibWU6d3JpdGUiLCJhY3RpZCI6MjYxNDkyNTIsInJnbiI6InVzZTEifQ.zhgRaEbrG4Pkbw0Uap6KX8GQM2DAHGaOTAjKeZfTBCA');
     monday.api(`
       query GetBoardItems{  
         boards {  
@@ -96,6 +124,8 @@ function App() {
     <main>
       <button onClick={(e) => create(e)}>Criar algo</button>
       <button onClick={(e) => update(e)}>Alterar algo</button>
+      <button onClick={(e) => createGroup(e)}>Criar Grupo</button>
+      <button onClick={(e) => deleteBoard(e)}>Deletar Grupo</button>
 
       {result.map((board) => {
         const groupedItems = groupItemsByTitle(board.items_page.items);
